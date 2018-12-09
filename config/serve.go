@@ -16,7 +16,7 @@
 package config
 
 import (
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	bgpconfig "github.com/osrg/gobgp/config"
 	"github.com/spf13/viper"
 )
