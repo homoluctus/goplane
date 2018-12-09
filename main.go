@@ -223,12 +223,9 @@ func main() {
 				}
 
 			} else {
-				added, deleted, updated, updatePolicy = bgpconfig.UpdateConfig(c, newConfig)
-				if updatePolicy {
-					log.Info("Policy config is updated")
-					p := bgpconfig.ConfigSetToRoutingPolicy(newConfig)
-					bgpServer.UpdatePolicy(*p)
-				}
+                log.Info("Policy config is updated")
+                p := bgpconfig.ConfigSetToRoutingPolicy(newConfig)
+                bgpServer.UpdatePolicy(*p)
 				c = newConfig
 			}
 
