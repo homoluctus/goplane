@@ -47,32 +47,3 @@ func ReadConfigfileServe(path, format string, configCh chan *Config, bgpConfigCh
 		configCh <- c
 	}
 }
-
-func UpdateConfig(curC *Dataplane, newC Dataplane) ([]VirtualNetwork, []VirtualNetwork) {
-	added := []VirtualNetwork{}
-	deleted := []VirtualNetwork{}
-	if curC == nil {
-		return newC.VirtualNetworkList, deleted
-	}
-	for _, n := range newC.VirtualNetworkList {
-		if inSlice(n, curC.VirtualNetworkList) < 0 {
-			added = append(added, n)
-		}
-	}
-
-	for _, n := range curC.VirtualNetworkList {
-		if inSlice(n, newC.VirtualNetworkList) < 0 {
-			deleted = append(deleted, n)
-		}
-	}
-	return added, deleted
-}
-
-func inSlice(one VirtualNetwork, list []VirtualNetwork) int {
-	for idx, vn := range list {
-		if vn.RD == one.RD {
-			return idx
-		}
-	}
-	return -1
-}
