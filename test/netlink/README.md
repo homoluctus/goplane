@@ -14,7 +14,7 @@ you only need to type 3 commands to play (tested in Ubuntu trusty and xenial).
 1. install dependent python packages
     
      ```
-     $ export GOPLANE=$GOPATH/src/github.com/osrg/goplane
+     $ export GOPLANE=$GOPATH/src/github.com/homoluctus/goplane
      $ pip install -r $GOPLANE/test/pip-requires.txt
      ```
 2. build goplane docker image

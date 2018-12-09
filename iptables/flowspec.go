@@ -24,7 +24,7 @@ import (
 	"github.com/osrg/gobgp/client"
 	"github.com/osrg/gobgp/packet/bgp"
 	bgptable "github.com/osrg/gobgp/table"
-	"github.com/osrg/goplane/config"
+	"github.com/homoluctus/goplane/config"
 )
 
 func FlowSpec2IptablesRule(nlri []bgp.FlowSpecComponentInterface, attr []bgp.PathAttributeInterface) ([]string, error) {

@@ -25,7 +25,7 @@ import (
 	bgpconfig "github.com/osrg/gobgp/config"
 	"github.com/osrg/gobgp/packet/bgp"
 	"github.com/osrg/gobgp/table"
-	"github.com/osrg/goplane/config"
+	"github.com/homoluctus/goplane/config"
 	"github.com/vishvananda/netlink"
 	"gopkg.in/tomb.v2"
 )
