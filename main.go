@@ -29,19 +29,12 @@ import (
 	"github.com/jessevdk/go-flags"
 	"github.com/homoluctus/goplane/config"
 	"github.com/homoluctus/goplane/iptables"
-	"github.com/homoluctus/goplane/netlink"
 
 	bgpapi "github.com/osrg/gobgp/api"
 	bgpconfig "github.com/osrg/gobgp/config"
 	"github.com/osrg/gobgp/packet/bgp"
 	bgpserver "github.com/osrg/gobgp/server"
 )
-
-type Dataplaner interface {
-	Serve() error
-	AddVirtualNetwork(config.VirtualNetwork) error
-	DeleteVirtualNetwork(config.VirtualNetwork) error
-}
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -169,8 +162,6 @@ func main() {
 		}()
 	}
 
-	var dataplane Dataplaner
-	var d *config.Dataplane
 	var c *bgpconfig.BgpConfigSet
 	var fsAgent *iptables.FlowspecAgent
 	for {
@@ -260,34 +251,6 @@ func main() {
 			}
 
 		case newConfig := <-configCh:
-			if dataplane == nil {
-				switch newConfig.Dataplane.Type {
-				case "netlink":
-					log.Debug("new dataplane: netlink")
-					dataplane = netlink.NewDataplane(newConfig, opts.GrpcHost)
-					go func() {
-						err := dataplane.Serve()
-						if err != nil {
-							log.Errorf("dataplane finished with err: %s", err)
-						}
-					}()
-				default:
-					log.Errorf("Invalid dataplane type(%s). dataplane engine can't be started", newConfig.Dataplane.Type)
-				}
-			}
-
-			as, ds := config.UpdateConfig(d, newConfig.Dataplane)
-			d = &newConfig.Dataplane
-
-			for _, v := range as {
-				log.Infof("VirtualNetwork %s is added", v.RD)
-				dataplane.AddVirtualNetwork(v)
-			}
-			for _, v := range ds {
-				log.Infof("VirtualNetwork %s is deleted", v.RD)
-				dataplane.DeleteVirtualNetwork(v)
-			}
-
 			if fsAgent == nil && newConfig.Iptables.Enabled {
 				fsAgent = iptables.NewFlowspecAgent(opts.GrpcHost, newConfig.Iptables)
 				go func() {
