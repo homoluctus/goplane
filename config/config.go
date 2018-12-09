@@ -19,28 +19,12 @@ import (
 	bgpconfig "github.com/osrg/gobgp/config"
 )
 
-type VirtualNetwork struct {
-	RD               string   `mapstructure:"rd"`
-	VNI              uint32   `mapstructure:"vni"`
-	VxlanPort        uint16   `mapstructure:"vxlan-port"`
-	VtepInterface    string   `mapstructure:"vtep-interface"`
-	Etag             uint32   `mapstructure:"etag"`
-	SniffInterfaces  []string `mapstructure:"sniff-interfaces"`
-	MemberInterfaces []string `mapstructure:"member-interfaces"`
-}
-
-type Dataplane struct {
-	Type               string           `mapstructure:"type"`
-	VirtualNetworkList []VirtualNetwork `mapstructure:"virtual-network-list"`
-}
-
 type Iptables struct {
 	Enabled bool   `mapstructure:"enabled"`
 	Chain   string `mapstructure:"chain"`
 }
 
 type Config struct {
-	Dataplane Dataplane              `mapstructure:"dataplane"`
 	Iptables  Iptables               `mapstructure:"iptables"`
 	BGP       bgpconfig.BgpConfigSet `mapstructure:"bgp"`
 }
