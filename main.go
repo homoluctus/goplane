@@ -25,7 +25,7 @@ import (
 	"syscall"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/sirupsen/logrus/hooks/syslog"
+	logrus_syslog "github.com/sirupsen/logrus/hooks/syslog"
 	"github.com/jessevdk/go-flags"
 	"github.com/homoluctus/goplane/config"
 	"github.com/homoluctus/goplane/iptables"
