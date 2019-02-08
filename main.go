@@ -137,7 +137,10 @@ func main() {
 	}
 
 	if opts.LogPlain == false {
-		log.SetFormatter(&log.JSONFormatter{})
+		log.SetFormatter(&log.JSONFormatter{
+			DisableColors: true,
+			FullTimestamp: true,
+		})
 	}
 
 	if opts.ConfigFile == "" {
