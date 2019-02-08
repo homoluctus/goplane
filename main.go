@@ -139,7 +139,7 @@ func main() {
 
 	if opts.LogPlain == false {
 		log.SetFormatter(&log.JSONFormatter{
-			TimestampFormat: time.RFC3339Nano
+			TimestampFormat: time.RFC3339Nano,
 		})
 	}
 
