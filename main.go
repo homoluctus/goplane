@@ -23,6 +23,7 @@ import (
 	"runtime"
 	"strings"
 	"syscall"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 	logrus_syslog "github.com/sirupsen/logrus/hooks/syslog"
@@ -138,8 +139,7 @@ func main() {
 
 	if opts.LogPlain == false {
 		log.SetFormatter(&log.JSONFormatter{
-			DisableColors: true,
-			FullTimestamp: true,
+			TimestampFormat: time.RFC3339Nano
 		})
 	}
 
